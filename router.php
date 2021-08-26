@@ -4,10 +4,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Middlewares\CorsMiddleware;
 use Slim\App;
-use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
-
-return function (App $app){
+return function (App $app) {
 
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
         return $response;
@@ -16,11 +14,5 @@ return function (App $app){
 
     $app->get('/', "App\Controllers\HomeController:home");
 
-    $app->group('/user', function (Group $group){
-        $group->post('/login', "App\Controllers\UserController:login");
-        $group->post('/register', "App\Controllers\UserController:register");
-    }); 
-
+    $app->post('/login', "App\Controllers\UserController:login");
 };
-
-
